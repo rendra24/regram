@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no, maximum-scale=1">
+	<meta charset="utf-8">
+	<title>Rute</title>
+	<!-- load library place untuk geocoder autocomplete dan kita set bahasanya ke bahasa indonesia -->
+	 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places&language=id"></script>
+	<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3tYaMD1EaIHHuzxZB2DHIIrN5ces_LvU&sensor=false&libraries=places&language=id"></script> -->
+<link rel="stylesheet" href="css/bootstrap.css">
+<script src="js/jquery.min.js"></script>
+	<script>
+		var dest;
+		var directionsDisplay;
+
+    // memanggil service Google Maps Direction
+    var directionsService = new google.maps.DirectionsService();
+    directionsDisplay = new google.maps.DirectionsRenderer();
+
+    $(document).ready(function() {
+    	var myOptions = {
+    		zoom: 12,
+    		center: new google.maps.LatLng(-7.9784696,112.561742),
+    		disableDefaultUI: true,
+    		mapTypeId: google.maps.MapTypeId.ROADMAP
+    	};
+
+        // posisi awal ketika halaman pertama kali dimuat
+        var map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
+
+        // memanggil fungsi geocoder autocomplete
+        var autocomplete = new google.maps.places.SearchBox((document.getElementById('dest')),{ types: ['geocode'] });
+
+    	/*	
+    		fungsi geolocation pada geocoder ini sangat penting
+    		agar pencarian daerah tujuan pada textbox ga ngaco 
+    		*/
+    		if (navigator.geolocation) {
+    			navigator.geolocation.getCurrentPosition(function(position) {
+    				var geolocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+    				autocomplete.setBounds(new google.maps.LatLngBounds(geolocation,geolocation));
+    			});
+    		}
+
+    	});
+	//-7.962423, 112.636267 savana
+
+	$(document).ready(function() {
+		// ketika tombol cari di klik, maka proses pencarian rute dimulai
+		// $("#cari").click(function(){
+
+			dest = $("#dest").val();
+
+			var defaultLatLng = new google.maps.LatLng(-2.548926,118.0148634);
+
+			/*	
+				nah, pada fungsi geolocation disini adalah
+				ketika koordinat user berhasil didapat maka peta koordinat yang digunakan
+				adalah koordinat user, namun jika tidak berhasil maka koordinat yang digunakan
+				adalah koordinat default (pada variable defaultLatLng)
+				*/
+				if (navigator.geolocation) {
+					function success(pos) {
+						drawMap(pos.coords.latitude,pos.coords.longitude);
+					}
+
+					function fail(error) {
+						drawMap(defaultLatLng);
+					}
+
+					navigator.geolocation.getCurrentPosition(success, fail, { maximumAge: 500000, enableHighAccuracy:true, timeout: 6000 });
+
+				} else {
+					drawMap(defaultLatLng);  
+				}
+
+				function drawMap(lat,lng) {
+
+					var myOptions = {
+						zoom: 15,
+						center: new google.maps.LatLng(lat,lng),
+						disableDefaultUI: true,
+						mapTypeId: google.maps.MapTypeId.ROADMAP
+					};
+
+					var map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
+
+		        // kita bikin marker untuk asal dengan koordinat user hasil dari geolocation
+		        var markerorigin = new google.maps.Marker({
+		        	position: new google.maps.LatLng(parseFloat(lat),parseFloat(lng)),
+		        	map: map,
+		        	title: "Origin",
+	                visible:false // kita ga perlu menampilkan markernya, jadi visibilitasnya kita set false
+	            });
+
+		        // membuat request ke Direction Service
+		        var request = {
+					origin: markerorigin.getPosition(), // untuk daerah asal, kita ambil posisi user
+				    destination: '-7.962583, 112.636310', // untuk daerah tujuan, kita ambil value dari textbox tujuan
+
+				    // provideRouteAlternatives:true, // set true, karena kita ingin menampilkan rute alternatif
+
+				    /**
+				     * kamu bisa tambahkan opsi yang lain seperti
+				     * avoidHighways:true (set true untuk menghindari jalan raya, set false untuk menonantifkan opsi ini)
+				     * atau kamu bisa juga menambahkan opsi seperti
+				     * avoidTolls:true (set true untuk menghindari jalan tol, set false untuk menonantifkan opsi ini)
+				     */
+				    travelMode: google.maps.TravelMode.DRIVING // set mode DRIVING (mode berkendara / kendaraan pribadi)
+				    /**
+				     * kamu bisa ganti dengan 
+				     * google.maps.TravelMode.BICYCLING (mode bersepeda)
+				     * google.maps.TravelMode.WALKING (mode berjalan)
+				     * google.maps.TravelMode.TRANSIT (mode kendaraan / transportasi umum)
+				     */
+				 };
+
+
+				 directionsService.route(request, function(response, status) {
+				 	if (status == google.maps.DirectionsStatus.OK) {
+				 		directionsDisplay.setDirections(response); 
+				 	}
+				 });
+				// menampiklkan rute pada peta dan juga direction panel sebagai petunjuk text
+				directionsDisplay.setMap(map);
+				directionsDisplay.setPanel(document.getElementById('directions-panel'));
+
+		  		// menampilkan layer traffic atau lalu-lintas pada peta
+		  		// var trafficLayer = new google.maps.TrafficLayer();
+		  		// trafficLayer.setMap(map);
+
+		  	}
+		  // });
+	});
+</script>
+</head>
+<style>
+	html, body, #wrapper{
+		height: 100%;
+		width: 100%;
+	}
+	
+	#map-canvas{
+		height: 100%;
+		width: 100%;
+		
+		/*margin-top: 100px;
+		margin-bottom: 100px;*/
+
+	}
+ #footer {
+     position:fixed;
+     background-color:#bf8504;
+     left:0px;
+     bottom:0px;
+     height: 35px;
+     width:100%;
+     color:#FFF;
+     text-align: center;
+     border-top:1px solid #000;
+     padding-top: 8px;
+   }
+	.navbar-default .navbar-nav > li > a {
+    color: #FFF;
+	}
+
+	.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+    background-color: #FFF;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: #000;
+}
+
+.navbar-toggle {
+	 background-color: #FFF;
+	}
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+    color: #0275d8;
+    background-color: #FFF;
+}
+.container > .navbar-header, .container-fluid > .navbar-header, .container > .navbar-collapse, .container-fluid > .navbar-collapse {
+    border: 0px;
+}
+.navbar-default .navbar-nav > li > a {
+    color: #FFF;
+    text-align: center;
+}
+
+/*.navbar-default .navbar-brand, .navbar-default .navbar-brand {
+   
+    border-radius: 50%;
+    border: 1px solid #FFF;
+}*/
+
+
+</style>
+<body>
+	<nav class="navbar navbar-default navbar-fixed-top" style=" opacity: 1; background-color:#bf8504; border-color:1px solid #FFF;">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+
+        <a class="navbar-brand" href="beranda.html" style="color:#FFF;"><i class="glyphicon glyphicon-arrow-left" >&nbsp;</i>Kembali</a> 
+        <!-- <p class="navbar-text" style="color:#FFF; font-size:1.2em; margin-right: 100px;">Get Location</p> -->
+      </div> 
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    
+  </div><!-- /.container-fluid -->
+</nav>
+	
+
+	
+	<!-- <div id="directions-panel" style="float:right; width:48%; height:600px; overflow:auto;"></div> -->
+	<div id="map-canvas"></div>
+	 <div id="footer">
+               
+              </div>
+	<script src="js/bootstrap.js" type="text/javascript" async defer></script>
+</body>
+</html>

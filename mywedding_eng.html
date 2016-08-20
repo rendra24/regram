@@ -1,0 +1,88 @@
+
+<!-- References: https://github.com/fancyapps/fancyBox -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="css/bootstrap.css">
+<script src="js/jquery.min.js"></script>
+<!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script> -->
+  <style type="text/css" media="screen">
+    .bg-color{
+      background: url('http://192.168.1.22:3000/img/bg2.jpg'); 
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+      height: 100%;
+      text-align: center;
+      
+
+    }
+    .gallery
+    {
+      display: inline-block;
+      margin-top: 20px;
+    }
+
+    #footer {
+     position:fixed;
+     background-color:#bf8504;
+     left:0px;
+     bottom:0px;
+     height: 35px;
+     width:100%;
+     color:#FFF;
+     text-align: center;
+     border-top:1px solid #000;
+     padding-top: 8px;
+   }
+ </style>
+ <body class="bg-color">
+   
+ 
+ <nav class="navbar navbar-default navbar-fixed-top" style=" opacity: 1; background-color:#bf8504; border-color:1px solid #FFF;">
+  <div class="container-fluid">
+
+    <div class="navbar-header">
+
+      <a class="navbar-brand" href="beranda_eng.html" style="color:#FFF;"><i class="glyphicon glyphicon-arrow-left" >&nbsp;</i>Back</a> 
+
+    </div>     
+
+  </div>
+</nav><br><br><br><br>
+<div class="container-fluid">
+
+<h2 class="text-center">Our Wedding</h2>
+  <div style="padding:10px;">
+    <div class="row">
+      <div class="panel panel-info" style="border:1px solid #bf8504; border-top:3px solid #bf8504; ">
+
+        <p class="text-center">Sugeng Rawuh Poro Sanak Kadang lan Pinisepuh</p>
+        <p class="text-center">Terimakasih telah mendownload aplikasi undangan pernikahan kami. </p>
+        <p class="text-center">
+          Bersama dengan ini, kami turut mengundang Keluarga, Sahabat dan rekan-rekan sekalian dalam acara pernikahan kami. 
+          Untuk Detail informasi waktu dan tempat acara, dapat dilihat pada menu “Info Wedding”
+        </p>
+      </div>
+    </div>
+  </div>
+
+
+</div> <!-- container / end -->
+
+</body>
+<div id="footer">
+
+</div>
+<script>
+  $(document).ready(function(){
+    //FANCYBOX
+    //https://github.com/fancyapps/fancyBox
+    $(".fancybox").fancybox({
+      openEffect: "none",
+      closeEffect: "none"
+    });
+  });
+
+
+</script>

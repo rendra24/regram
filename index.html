@@ -1,0 +1,163 @@
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no, maximum-scale=1">
+<meta charset="utf-8">
+<link rel="stylesheet" href="css/bootstrap.css">
+<script src="js/jquery.min.js"></script>
+<style type="text/css" media="screen">
+body {
+	background:url('img/bg_intro.jpg');
+	
+}
+	.btn-arrow-right,
+
+.btn-arrow-left {
+    position: relative;
+    padding-left: 18px;
+    padding-right: 18px;
+}
+.btn-arrow-right {
+    padding-left: 36px;
+}
+.btn-arrow-left {
+    padding-right: 36px;
+}
+.btn-arrow-right:before,
+.btn-arrow-right:after,
+.btn-arrow-left:before,
+.btn-arrow-left:after { /* make two squares (before and after), looking similar to the button */
+    content:"";
+    position: absolute;
+    top: 5px; /* move it down because of rounded corners */
+    width: 22px; /* same as height */
+    height: 22px; /* button_outer_height / sqrt(2) */
+    background: inherit; /* use parent background */
+    border: inherit; /* use parent border */
+    border-left-color: transparent; /* hide left border */
+    border-bottom-color: transparent; /* hide bottom border */
+    border-radius: 0px 4px 0px 0px; /* round arrow corner, the shorthand property doesn't accept "inherit" so it is set to 4px */
+    -webkit-border-radius: 0px 4px 0px 0px;
+    -moz-border-radius: 0px 4px 0px 0px;
+}
+.btn-arrow-right:before,
+.btn-arrow-right:after {
+    transform: rotate(45deg); /* rotate right arrow squares 45 deg to point right */
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+}
+.btn-arrow-left:before,
+.btn-arrow-left:after {
+    transform: rotate(225deg); /* rotate left arrow squares 225 deg to point left */
+    -webkit-transform: rotate(225deg);
+    -moz-transform: rotate(225deg);
+    -o-transform: rotate(225deg);
+    -ms-transform: rotate(225deg);
+}
+.btn-arrow-right:before,
+.btn-arrow-left:before { /* align the "before" square to the left */
+    left: -11px;
+}
+.btn-arrow-right:after,
+.btn-arrow-left:after { /* align the "after" square to the right */
+    right: -11px;
+}
+.btn-arrow-right:after,
+.btn-arrow-left:before { /* bring arrow pointers to front */
+    z-index: 1;
+}
+.btn-arrow-right:before,
+.btn-arrow-left:after { /* hide arrow tails background */
+    background-color: transparent;
+}
+
+.btn-go {
+	background-color: #FFFFFF;
+	color:#000;
+}
+
+@media only screen 
+and (min-device-width : 200px) 
+and (max-device-width : 320px) {
+	body {
+	background:url('img/bg_intro.jpg');
+	 background-size: 320px 568px;
+}
+	}
+
+@media only screen 
+and (device-width: 360px) 
+and (max-device-width: 413px) 
+and (-webkit-device-pixel-ratio: 3)  { 
+	body {
+	background:url('img/bg_intro.jpg');
+	 background-size: 360px 640px;
+}
+}
+
+@media only screen 
+and (min-device-width : 414px) 
+and (max-device-width : 736px) {
+	body {
+	background:url('img/bg_intro.jpg');
+	 background-size: 414px 736px;
+}
+	}
+
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) 
+{
+  .body {
+	background:url('img/bg_intro.jpg');
+	background-size: 768px 1024px;
+	 background-repeat: no-repeat;
+}
+}
+
+</style>
+<body>
+<h2 style="color:#FFF; text-align:center;">Sugeng Rawuh 
+	</h2>
+	<br><br>
+	<center>
+		<img src="img/bg_intro.png" style="width:200px; height:200px;" class="img-circle">
+	</center>
+	<h2 style="color:#FFF; text-align:center;">
+	 Wike & Dhita</h2> 
+	<br>
+	<br>
+	
+	<!-- <div class="text-left" style="margin-left:20px;">
+		<a id="submit" style="text-align:  center;" class="btn btn-go btn-arrow-right">Ind</a>  
+	</div>
+	<div class="text-right" style="margin-right:20px;">
+		<a id="submit" style="text-align:  center;" class="btn btn-go btn-arrow-right">Eng</a>  
+	</div> -->
+	<div class="row" style="padding-left:18px;
+	padding-right:18px;"">
+		
+	
+	<div class="col-xs-6 text-left">
+		<a href="beranda.html" class="btn btn-default"  style="width:100px; background-color: transparent;
+    border: 2px solid #fff; color:#FFF;"/>
+		<img src="img/id.png" alt="" style="width:32px;height:32px;"><br>
+		<b>Indoneisa</b></a>
+	</div>
+	<div class="col-xs-6 text-right">
+	
+		<a href="beranda_eng.html" class="btn btn-default" style="width:100px; background-color: transparent;
+    border: 2px solid #fff; color:#FFF;"/>
+		<img src="img/eng.png" alt="" style="width:32px;height:32px;"><br>
+		<b>English</b></a>
+	</div>
+
+	</div>
+</body>
+
+
+<!-- <script>
+	$(document).ready(function(){		
+			 setTimeout(function(){window.location = "index.html";},1500); 
+	});
+
+</script> -->
